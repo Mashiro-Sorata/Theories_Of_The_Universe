@@ -1,4 +1,4 @@
-function init(can,w,h,star_num,stars,starObj,star_max_wh,star_min_wh)
+function init(can,w,h,star_num,stars,starObj,star_max_wh,star_min_wh)//初始化：生成star对象
 {
 	//初始化
 	var i=star_num,temp;
@@ -85,7 +85,7 @@ function draw_stars_contain(ctx,w,h,stars,star_num,flicw,star_mx,star_my)	//拉�
 	}
 }
 
-function draw_stars_auto1(ctx,w,h,w_h,bgp_w_h,stars,star_num,flicw,star_mx,star_my)
+function draw_stars_auto1(ctx,w,h,w_h,bgp_w_h,stars,star_num,flicw,star_mx,star_my)		//适应(w>=h)
 {
 	var i=star_num,
 		temp_wh,
@@ -100,7 +100,7 @@ function draw_stars_auto1(ctx,w,h,w_h,bgp_w_h,stars,star_num,flicw,star_mx,star_
 	}
 }
 
-function draw_stars_auto2(ctx,w,h,w_h,bgp_w_h,stars,star_num,flicw,star_mx,star_my)
+function draw_stars_auto2(ctx,w,h,w_h,bgp_w_h,stars,star_num,flicw,star_mx,star_my)		//适应(w<h)
 {
 	var i=star_num,
 		temp_wh,
@@ -115,7 +115,7 @@ function draw_stars_auto2(ctx,w,h,w_h,bgp_w_h,stars,star_num,flicw,star_mx,star_
 	}
 }
 
-function draw_stars_cover1(ctx,w,h,w_h,bgp_w_h,stars,star_num,flicw,star_mx,star_my)
+function draw_stars_cover1(ctx,w,h,w_h,bgp_w_h,stars,star_num,flicw,star_mx,star_my)	//填充(w>=h)
 {
 	var i=star_num,
 		temp_wh,
@@ -131,7 +131,7 @@ function draw_stars_cover1(ctx,w,h,w_h,bgp_w_h,stars,star_num,flicw,star_mx,star
 	}
 }
 
-function draw_stars_cover2(ctx,w,h,w_h,bgp_w_h,stars,star_num,flicw,star_mx,star_my)
+function draw_stars_cover2(ctx,w,h,w_h,bgp_w_h,stars,star_num,flicw,star_mx,star_my)	//填充(w<h)
 {
 	var i=star_num,
 		temp_wh,
@@ -243,14 +243,14 @@ function main()
     	h=screen['height'],
     	w_h=w/h,
 		ftime=15,	//刷新间隔时间
-		temp_ftime=15,
 		flicw=13,	//闪动范围_越小闪动越明显
 		adj_p=0.3,		//
 		stars=[];	//保存starObj()的数组
-		var bgp_style='contain',temp_bgp_style='contain';	//壁纸填充样式
+		temp_stars=[];	//保存随机生成的stars数组的子数组
+		var bgp_style='contain';	//壁纸填充样式
  	// const bgp_w=1278,bgp_h=798;//背景图的宽,高
  	const bgp_w_h=1278/798;
- 	var flag_wh=(w_h>=bgp_w_h) ? 1:0;
+ 	var flag_wh=(w_h>=bgp_w_h) ? 1:0;	//宽>=高返回1
  {
 	//新增星星的信息更新处(----------------------------------------------------------)
 
@@ -262,49 +262,108 @@ function main()
  	star_min_wh=[10,20,7,11,12,11,16,16,11,35,20,15,20,20,11,13,10,11,14,14,12],
  	star_max_wh=[35,46,30,31,40,34,35,30,30,70,60,40,45,50,36,34,28,30,34,37,35];
  }
+ 	var temp_star_mx=[],
+ 		temp_star_my=[],
+ 		temp_star_min_wh=[],
+ 		temp_star_max_wh=[];
+ 	temp_star_mx=star_mx.slice(0);
+ 	temp_star_my=star_my.slice(0);
+ 	temp_star_min_wh=star_min_wh.slice(0);
+ 	temp_star_max_wh=star_max_wh.slice(0);
  	const earthx=46,earthy=522,earthw=240,earthh=238;
  	var starObj = function()
-{
-	//创建自定义对象
-	this['wh'];
-	this['step'];
-	this['step_record'];
-	this['pic'];
-	this['add_rand'];
-};
+	{
+		//创建自定义对象
+		this['wh'];
+		this['step'];
+		this['step_record'];
+		this['pic'];
+		this['add_rand'];
+	};
 	var flash_div=document.getElementById('my_flash_div');
 	var bgp_div=document.getElementById('my_bgp_div');
 	var v=document.getElementById('video1');
 	var temp_str;
-	var earth_speed=0.5,temp_earth_speed=0.5,earth_show=true;//星球变量
-	//监听wallpaper
+	var earth_speed=0.5,earth_show=true;//星球变量
+	//****************************监听wallpaper***************************
 	window.wallpaperPropertyListener = {
     	applyUserProperties: function(properties) {
         if(properties['C2_ftime_opt']){
-            temp_ftime=400-properties['C2_ftime_opt']['value'];
+            ftime=400-properties['C2_ftime_opt']['value'];
+            {
+	            clearInterval(int);
+				switch(bgp_style)
+				{
+					case 'contain':
+						temp_str=bgp_style+'()';
+						break;
+					default:
+						temp_str=bgp_style+(2-flag_wh)+'()';
+				}
+				int=setInterval(function(){eval(temp_str);},ftime);
+			}
         }
         if(properties['C3_flicw_opt']){
         	flicw=103-properties['C3_flicw_opt']['value'];
         }
         if(properties['C5_star_num_opt']){
         	star_num=properties['C5_star_num_opt']['value'];
+        	getRandomArray();
         }
         if(properties['C1_bgp_style_opt']){
-        	temp_bgp_style=properties['C1_bgp_style_opt']['value'];
+        	bgp_style=properties['C1_bgp_style_opt']['value'];
+        	{  
+				ctx.clearRect(0,0,w,h);
+				w_h=screen['width']/screen['height'];
+				flag_wh=(w_h>=bgp_w_h) ? 1:0;
+				clearInterval(int);
+				switch(bgp_style)
+				{
+					case 'contain':
+						temp_str=bgp_style+'()';
+						earth_contain(flash_div,bgp_div,w,h,earthx,earthy,earthw,earthh);
+						break;
+					case 'cover':
+						temp_str=bgp_style+(2-flag_wh)+'()';
+						earth_cover(flash_div,bgp_div,w,h,w_h,bgp_w_h,earthx,earthy,earthw,earthh,flag_wh);
+						break;
+					default:
+						temp_str=bgp_style+(2-flag_wh)+'()';
+						earth_auto(flash_div,bgp_div,w,h,w_h,bgp_w_h,earthx,earthy,earthw,earthh,flag_wh);
+				}
+				int=setInterval(function(){eval(temp_str);},ftime);
+			}
         }
         if(properties['C4_adj_p_opt']){
         	adj_p=properties['C4_adj_p_opt']['value']/100;
         }
         if(properties['C7_earth_speed_opt']){
-        	temp_earth_speed=properties['C7_earth_speed_opt']['value']/10;
+        	earth_speed=properties['C7_earth_speed_opt']['value']/10;
+        	v.playbackRate=earth_speed;
         }
         if(properties['C6_earth_show_opt']){
         	earth_show=properties['C6_earth_show_opt']['value'];
+        	{
+        		if(!earth_show)
+				{
+					v.style.display="none";
+					v.pause();
+				}
+				else
+				{
+					if(v['paused'] && (v['style']['display']=='none')){
+			        	v.play();
+			    	}
+			    	v.style.display="inherit";
+				}
+		    }
         }
     }
 };
-	v.playbackRate=earth_speed;
+//**********************************************************************************
+	v.playbackRate=earth_speed;	//播放速度
 	init(can,w,h,star_num,stars,starObj,star_max_wh,star_min_wh,flag_wh);
+	temp_stars=stars.slice(0);
 	switch(bgp_style)
 	{
 		case 'contain':
@@ -320,104 +379,70 @@ function main()
 			earth_auto(flash_div,bgp_div,w,h,w_h,bgp_w_h,earthx,earthy,earthw,earthh,flag_wh);
 	}		
 	var int=setInterval(function(){eval(temp_str);},ftime);
-	setInterval(check,400);
 
-
-function check()
-{
-	if(temp_ftime!=ftime)
+	function contain()
 	{
-		ftime=temp_ftime;
-		clearInterval(int);
-		switch(bgp_style)
+		draw_stars_contain(ctx,w,h,temp_stars,star_num,flicw,temp_star_mx,temp_star_my);
+		randvary(temp_stars,star_num,temp_star_max_wh,temp_star_min_wh,adj_p);
+	}
+
+	function auto1()
+	{
+		draw_stars_auto1(ctx,w,h,w_h,bgp_w_h,temp_stars,star_num,flicw,temp_star_mx,temp_star_my);
+		randvary(temp_stars,star_num,temp_star_max_wh,temp_star_min_wh,adj_p);
+	}
+
+	function auto2()
+	{
+		draw_stars_auto2(ctx,w,h,w_h,bgp_w_h,temp_stars,star_num,flicw,temp_star_mx,temp_star_my);
+		randvary(temp_stars,star_num,temp_star_max_wh,temp_star_min_wh,adj_p);
+	}
+
+	function cover1()
+	{
+		draw_stars_cover1(ctx,w,h,w_h,bgp_w_h,temp_stars,star_num,flicw,temp_star_mx,temp_star_my);
+		randvary(temp_stars,star_num,temp_star_max_wh,temp_star_min_wh,adj_p);
+	}
+
+	function cover2()
+	{
+		draw_stars_cover2(ctx,w,h,w_h,bgp_w_h,temp_stars,star_num,flicw,temp_star_mx,temp_star_my);
+		randvary(temp_stars,star_num,temp_star_max_wh,temp_star_min_wh,adj_p);
+	}
+
+	v.onclick=function()
+	{
+	    if(v.paused){
+	        v.play();
+	    }else{
+	        v.pause();
+	    }
+	}
+
+	//删除数组元素
+	Array.prototype.remove = function(from, to) {
+	  var rest = this.slice((to || from) + 1 || this.length);
+	  this.length = from < 0 ? this.length + from : from;
+	  return this.push.apply(this, rest);
+};
+	
+	//从原始数组获得随机子数组
+	function getRandomArray()
+	{
+		temp_stars=stars.slice(0);
+		temp_star_mx=star_mx.slice(0);
+		temp_star_my=star_my.slice(0);
+		temp_star_min_wh=star_min_wh.slice(0);
+		temp_star_max_wh=star_max_wh.slice(0);
+		for(var i=0;i<(21-star_num);i++)
 		{
-			case 'contain':
-				temp_str=bgp_style+'()';
-				break;
-			default:
-				temp_str=bgp_style+(2-flag_wh)+'()';
+			var temp=Math.round(Math.random()*(star_num-1-i));
+			temp_stars.remove(temp);
+			temp_star_mx.remove(temp);
+			temp_star_my.remove(temp);
+			temp_star_min_wh.remove(temp);
+			temp_star_max_wh.remove(temp);
 		}
-		int=setInterval(function(){eval(temp_str);},ftime);
 	}
-	if(temp_bgp_style!=bgp_style)
-	{  
-		ctx.clearRect(0,0,w,h);
-		bgp_style=temp_bgp_style;
-		w_h=screen['width']/screen['height'];
-		flag_wh=(w_h>=bgp_w_h) ? 1:0;
-		clearInterval(int);
-		switch(bgp_style)
-		{
-			case 'contain':
-				temp_str=bgp_style+'()';
-				earth_contain(flash_div,bgp_div,w,h,earthx,earthy,earthw,earthh);
-				break;
-			case 'cover':
-				temp_str=bgp_style+(2-flag_wh)+'()';
-				earth_cover(flash_div,bgp_div,w,h,w_h,bgp_w_h,earthx,earthy,earthw,earthh,flag_wh);
-				break;
-			default:
-				temp_str=bgp_style+(2-flag_wh)+'()';
-				earth_auto(flash_div,bgp_div,w,h,w_h,bgp_w_h,earthx,earthy,earthw,earthh,flag_wh);
-		}
-		int=setInterval(function(){eval(temp_str);},ftime);
-	}
-	if(temp_earth_speed!=earth_speed)
-	{
-		earth_speed=temp_earth_speed;
-		v.playbackRate =earth_speed;
-	}
-	if(!earth_show)
-	{
-		v.style.display="none";
-		v.pause();
-	}
-	else
-	{
-		if(v['paused'] && (v['style']['display']=='none')){
-        	v.play();
-    	}
-    	v.style.display="inherit";
-	}
-}
-
-function contain()
-{
-	draw_stars_contain(ctx,w,h,stars,star_num,flicw,star_mx,star_my);
-	randvary(stars,star_num,star_max_wh,star_min_wh,adj_p);
-}
-
-function auto1()
-{
-	draw_stars_auto1(ctx,w,h,w_h,bgp_w_h,stars,star_num,flicw,star_mx,star_my);
-	randvary(stars,star_num,star_max_wh,star_min_wh,adj_p);
-}
-
-function auto2()
-{
-	draw_stars_auto2(ctx,w,h,w_h,bgp_w_h,stars,star_num,flicw,star_mx,star_my);
-	randvary(stars,star_num,star_max_wh,star_min_wh,adj_p);
-}
-
-function cover1()
-{
-	draw_stars_cover1(ctx,w,h,w_h,bgp_w_h,stars,star_num,flicw,star_mx,star_my);
-	randvary(stars,star_num,star_max_wh,star_min_wh,adj_p);
-}
-
-function cover2()
-{
-	draw_stars_cover2(ctx,w,h,w_h,bgp_w_h,stars,star_num,flicw,star_mx,star_my);
-	randvary(stars,star_num,star_max_wh,star_min_wh,adj_p);
-}
-
-v.onclick=function()
-{
-    if(v.paused){
-        v.play();
-    }else{
-        v.pause();
-    }
-}
 }
 
