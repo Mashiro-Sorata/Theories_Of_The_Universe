@@ -1,16 +1,19 @@
-# [**Theories_Of_The_Universe**](http://steamcommunity.com/sharedfiles/filedetails/?id=848592407)
+<a href="http://steamcommunity.com/sharedfiles/filedetails/?id=848592407" ><h1 align="center">Theories Of The Universe</h1></a>
 
 
-<center><font color="#FFA500">Producted By >></font>[Mashiro_Sorata](http://steamcommunity.com/id/Mashiro-Sorata/)</center>
+<center><font color="#FFA500">Powered By >></font><a href="http://steamcommunity.com/id/Mashiro-Sorata/">Mashiro_Sorata</a></center>
 
-<p align="center">**#WALLPAPER ENGINE PROJECT#**</p>
+<p align="center"><b>#WALLPAPER ENGINE PROJECT#</b></p>
 <div align="center">
 <img src="preview.jpg" width = "200" height = "100%" alt="preview_pic"/>
 </div>
 
-<center><h5><font color="#4169E1">星空闪烁</font><font color="#FFFF00">+</font><font color="#32CD32">星球转动</font></h5></center>
+<center><h5 align="center"><font color="#4169E1">星空闪烁</font><font color="#FFFF00">+</font><font color="#32CD32">星球转动</font></h5></center>
+
 ***
+
 ## Description(描述)：
+
 ###### 壁纸已经完成，一共7个可调整项：
 
 1. 闪动位移范围：值越大，星星抖动越厉害；
@@ -21,9 +24,13 @@
 6. 是否显示星球：如字面意思，可设置星球是否可见；
 7. 星球转动速度：设置星球自转速度。
 8. 调整星星个数时，星星随机显示。
+
 ***
+
 ## ChangeLog(更新日志)：
- ### <font color="#DAA520">2017年</font>
+
+### <font color="#DAA520">2017年</font>
+
 >* ##### update1.01：更新于>1月25日>下午10:40
 <font color="#ADD8E6">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;优化了部分代码，增添了一颗星星。</font>
 * ##### update1.10：更新于>1月30日>下午8:25
@@ -44,6 +51,7 @@
 <font color="#ADD8E6">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.优化了主程序部分的代码，占用CPU资源更少；<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.改动：调整星星个数时星星随机显示。</font>
 
----
+***
+
 ## PS(备注)：
 >目前考研暂时不会动这个项目了，大概吧……
