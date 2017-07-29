@@ -1,7 +1,7 @@
 <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=848592407" ><h1 align="center">Theories Of The Universe</h1></a>
 
 
-<p align="center"><font color="#FFA500" size=5>Powered By >></font><a href="http://steamcommunity.com/id/Mashiro-Sorata/"><font size=5>Mashiro_Sorata</font></a><font size=1>(steam)</font></p>
+<div align="center"><font color="#FFA500" size=3>Powered By >></font><a href="http://steamcommunity.com/id/Mashiro-Sorata/"><font size=3>Mashiro_Sorata</font></a><font size=1>(steam)</font></div>
 
 <p align="center"><b>#WALLPAPER ENGINE PROJECT#</b></p>
 <div align="center">
