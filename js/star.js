@@ -436,7 +436,7 @@ function main()
 		temp_star_max_wh=star_max_wh.slice(0);
 		for(var i=0;i<(21-star_num);i++)
 		{
-			var temp=Math.round(Math.random()*(star_num-1-i));
+			var temp=Math.round(Math.random()*(21-i));
 			temp_stars.remove(temp);
 			temp_star_mx.remove(temp);
 			temp_star_my.remove(temp);
