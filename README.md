@@ -13,7 +13,9 @@
 ***
 
 ## Description(描述)：
-###### 壁纸已经完成，一共7个可调整项：
+###### 一共7个可调整项：
+
+[DEMO](http://mashirosorata.vicp.io/others/wallpaper-demo/demo.html)
 
 1. 闪动位移范围：值越大，星星抖动越厉害；
 2. 闪动速度：星星闪动变化的速度，值越大变化也就越快，增大可获取更好的效果；
@@ -51,6 +53,3 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.改动：调整星星个数时星星随机显示。</font>
 
 ***
-
-## PS(备注)：
->目前考研暂时不会动这个项目了，大概吧……
