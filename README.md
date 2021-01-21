@@ -15,7 +15,7 @@
 ## Description(描述)：
 ###### 一共7个可调整项：
 
-[DEMO](http://mashirosorata.vicp.io/others/wallpaper-demo/demo.html)
+[DEMO](http://mashiros.top/others/wallpaper-demo/demo.html)
 
 1. 闪动位移范围：值越大，星星抖动越厉害；
 2. 闪动速度：星星闪动变化的速度，值越大变化也就越快，增大可获取更好的效果；
